@@ -25,20 +25,25 @@ anagrams of ``target_word`` in a text file named ``words_file``, run
 """
 
 
-def anagram_checker(target_word):
-    """Generates boolean function that checks if input is anagram of base_word
+def anagram_checker(target_word, anagram_signature=sorted):
+    """Generates boolean function that checks if input is anagram of target_word
 
     Parameters
     ----------
-    base_word: str (not bytes)
+    target_word: str (not bytes)
         This is the word we will use a comparison point. We want to test if
         other words are an anagram of this word.
+    anagram_signature: function, optional
+        This must satisfy ``anagram_signature(word) ==
+        anagram_signature(target_word)`` if and only if ``word`` is an anagram of
+        ``target_word``. Default is ``sorted``, but you can experiment with other
+        functions, like ``collections.Counter`` if you want.
 
     Returns
     -------
     is_anagram: function
         ``is_anagram(word)`` is ``True`` if and only ``word`` is an anagram of
-        ``base_word``.
+        ``target_word``.
 
     Examples
     --------
@@ -54,12 +59,21 @@ def anagram_checker(target_word):
     False
     >>> is_anagram('Balms')
     False
+
+    Using a different ``anagram_signature`` function:
+
+    >>> from collections import Counter
+    >>> is_anagram = anagram_checker('lambs', anagram_signature=Counter)
+    >>> words = ['balms', 'lambs', '_balms', ' balms', 'Balms']
+    >>> list(filter(is_anagram, words))
+    ['balms', 'lambs']
+
     """
-    base = sorted(target_word)
+    target_word_signature = anagram_signature(target_word)
 
     def is_anagram(word):
-        stat = sorted(word)
-        return base == stat
+        other_word_signature = anagram_signature(word)
+        return target_word_signature == other_word_signature
     return is_anagram
 
 
@@ -70,7 +84,10 @@ if __name__ == "__main__":
     input_file = sys.argv[2]
     target_word = sys.argv[1]
 
-    is_anagram = anagram_checker(target_word)
+    # Change anagram_signature if you want to test some other function like
+    # collections.Counter. In Python3.4, on my machine, collections.Counter is
+    # slower than sorted.
+    is_anagram = anagram_checker(target_word, anagram_signature=sorted)
 
     with open(input_file) as f:
         words = takewhile(bool, (l.rstrip() for l in f))
