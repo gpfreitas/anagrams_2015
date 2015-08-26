@@ -10,5 +10,5 @@ word from a file containing one word per line.
 
 The script ``test_anagrams.py`` contains tests for the script ``anagrams.py``.
 
-For more information, run ``anagrams.py -h``.
+For more information, read the documentation at the beggining of ``anagrams.py``.
 

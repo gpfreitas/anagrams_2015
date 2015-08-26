@@ -15,8 +15,12 @@ file containing one word per line. For more details, see the documentation of
 the ``anagram_checker`` function.
 
 Even though tests and other files were originally provided with this file, you
-can use this file as a standalone script. [TODO] For usage instructions, run
-this file as a script from the command line with the ``-h`` or ``--help`` flag.
+can use this file as a standalone script as follows. If you want to find all
+anagrams of ``target_word`` in a text file named ``words_file``, run
+
+::
+
+    ./anagrams.py target_word words_file
 
 """
 
