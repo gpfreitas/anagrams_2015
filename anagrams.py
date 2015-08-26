@@ -98,7 +98,7 @@ if __name__ == "__main__":
         # We can rule out words that do not have the same length as target_word
         target_length = len(args.target_word)
         candidate_words = (w for w in words if len(w) == target_length)
-        # Better keep filters like the one above in candidate_words here rather
+        # Better keep here filters like the one above (in candidate_words) rather
         # than inside the anagram_checker function. For example, a user might
         # know that the word list at hand has only words with the same length.
         # In that case, it is wasteful to verify the lengths of the words. It
