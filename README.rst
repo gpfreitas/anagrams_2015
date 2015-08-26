@@ -10,5 +10,9 @@ word from a file containing one word per line.
 
 The script ``test_anagrams.py`` contains tests for the script ``anagrams.py``.
 
-For more information, read the documentation at the beggining of ``anagrams.py``.
+For usage information, run ``anagrams.py -h``. At the moment, the script only
+supports Python 3.
+
+For more information, read the documentation in ``anagrams.py`` and/or inspect
+its source code.
 

@@ -15,12 +15,11 @@ file containing one word per line. For more details, see the documentation of
 the ``anagram_checker`` function.
 
 Even though tests and other files were originally provided with this file, you
-can use this file as a standalone script as follows. If you want to find all
-anagrams of ``target_word`` in a text file named ``words_file``, run
+can use this file as a standalone script as follows. For usage instructions,
+run
 
 ::
-
-    ./anagrams.py target_word words_file
+    ./anagrams.py -h
 
 """
 
@@ -78,18 +77,23 @@ def anagram_checker(target_word, anagram_signature=sorted):
 
 
 if __name__ == "__main__":
-    import sys
     from itertools import takewhile
+    import argparse
 
-    input_file = sys.argv[2]
-    target_word = sys.argv[1]
+    parser = argparse.ArgumentParser(description='Find anagrams of target_word'
+            ' in file fname')
+    parser.add_argument(dest='target_word', type=str, help='Word against which'
+            ' we will check anagrams')
+    parser.add_argument(dest='fname', type=str, help='Input file with one word'
+            ' per line where we will look for anagrams')
+    args = parser.parse_args()
 
     # Change anagram_signature if you want to test some other function like
     # collections.Counter. In Python3.4, on my machine, collections.Counter is
     # slower than sorted.
-    is_anagram = anagram_checker(target_word, anagram_signature=sorted)
+    is_anagram = anagram_checker(args.target_word, anagram_signature=sorted)
 
-    with open(input_file) as f:
+    with open(args.fname) as f:
         words = takewhile(bool, (l.rstrip() for l in f))
         anagrams = filter(is_anagram, words)
         for word in anagrams:
