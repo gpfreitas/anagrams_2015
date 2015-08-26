@@ -95,6 +95,9 @@ if __name__ == "__main__":
 
     with open(args.fname) as f:
         words = takewhile(bool, (l.rstrip() for l in f))
-        anagrams = filter(is_anagram, words)
+        # We can rule out words that do not have the same length as target_word
+        target_length = len(args.target_word)
+        candidate_words = (w for w in words if len(w) == target_length)
+        anagrams = filter(is_anagram, candidate_words)
         for word in anagrams:
             print(word)
