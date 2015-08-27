@@ -8,10 +8,12 @@ import os
 import shlex
 import subprocess
 
+
 def load_tests(loader, tests, ignore):
     """Loads the tests in the documentation of anagrams.py"""
     tests.addTests(doctest.DocTestSuite(anagrams))
     return tests
+
 
 class TestAnagrams(unittest.TestCase):
     """Test the functions in the anagrams module."""
