@@ -34,9 +34,9 @@ def anagram_checker(target_word, anagram_signature=sorted):
         other words are an anagram of this word.
     anagram_signature: function, optional
         This must satisfy ``anagram_signature(word) ==
-        anagram_signature(target_word)`` if and only if ``word`` is an anagram of
-        ``target_word``. Default is ``sorted``, but you can experiment with other
-        functions, like ``collections.Counter`` if you want.
+        anagram_signature(target_word)`` if and only if ``word`` is an anagram
+        of ``target_word``. Default is ``sorted``, but you can experiment with
+        other functions, like ``collections.Counter`` if you want.
 
     Returns
     -------
@@ -80,30 +80,30 @@ if __name__ == "__main__":
     from itertools import takewhile
     import argparse
 
-    parser = argparse.ArgumentParser(description='Find anagrams of target_word'
-            ' in file fname')
-    parser.add_argument(dest='target_word', type=str, help='Word against which'
-            ' we will check anagrams')
-    parser.add_argument(dest='fname', type=str, help='Input file with one word'
-            ' per line where we will look for anagrams')
+    # Parse input arguments
+    parser = argparse.ArgumentParser(
+        description='Find anagrams of word in file fname'
+    )
+    parser.add_argument(
+        dest='word',
+        type=str,
+        help='Word against which we will check anagrams'
+    )
+    parser.add_argument(
+        dest='fname',
+        type=str,
+        help='Input file with one word per line'
+    )
     args = parser.parse_args()
 
-    # Change anagram_signature if you want to test some other function like
-    # collections.Counter. In Python3.4, on my machine, collections.Counter is
-    # slower than sorted.
-    is_anagram = anagram_checker(args.target_word, anagram_signature=sorted)
+    is_anagram = anagram_checker(args.word, anagram_signature=sorted)
 
     with open(args.fname) as f:
         words = takewhile(bool, (l.rstrip() for l in f))
-        # We can rule out words that do not have the same length as target_word
-        target_length = len(args.target_word)
+        # We can rule out words that do not have the same length as word
+        # Such tricks are best kept here than in the anagram_checker function
+        target_length = len(args.word)
         candidate_words = (w for w in words if len(w) == target_length)
-        # Better keep here filters like the one above (in candidate_words) rather
-        # than inside the anagram_checker function. For example, a user might
-        # know that the word list at hand has only words with the same length.
-        # In that case, it is wasteful to verify the lengths of the words. It
-        # seems to me that the most natural place for modifications in such
-        # cases is in the script, not in the innards of a function.
         anagrams = filter(is_anagram, candidate_words)
         for word in anagrams:
             print(word)
