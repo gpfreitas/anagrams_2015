@@ -50,10 +50,6 @@ def anagram_checker(target_word, anagram_signature=sorted):
     >>> is_anagram = anagram_checker('lambs')
     >>> is_anagram('balms')
     True
-    >>> is_anagram('lambs')
-    True
-    >>> is_anagram('_balms')
-    False
     >>> is_anagram(' balms')
     False
     >>> is_anagram('Balms')
@@ -64,7 +60,7 @@ def anagram_checker(target_word, anagram_signature=sorted):
     >>> from collections import Counter
     >>> is_anagram = anagram_checker('lambs', anagram_signature=Counter)
     >>> words = ['balms', 'lambs', '_balms', ' balms', 'Balms']
-    >>> list(filter(is_anagram, words))
+    >>> [w for w in words if is_anagram(w)]
     ['balms', 'lambs']
 
     """
