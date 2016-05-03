@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gpfreitas/anagrams_2015.svg?branch=master)](https://travis-ci.org/gpfreitas/anagrams_2015)
+
 Anagrams
 ========
 
