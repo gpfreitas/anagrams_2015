@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/gpfreitas/anagrams_2015.svg?branch=master)](https://travis-ci.org/gpfreitas/anagrams_2015)
+[![Coverage Status](https://coveralls.io/repos/github/gpfreitas/anagrams_2015/badge.svg?branch=master)](https://coveralls.io/github/gpfreitas/anagrams_2015?branch=master)
 
 # Anagrams
 
