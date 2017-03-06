@@ -26,3 +26,15 @@ This tests both the routines inside `anagrams.py` and the execution of
 
 For more information, read the documentation in `anagrams.py` and/or inspect
 its source code.
+
+
+## Data
+
+A compressed datafile `words.txt.zip` is included for experimentation. It can
+be decompressed with
+
+```bash
+python -m zipfile -e words.txt.zip
+```
+Once decompressed, `words.txt` has one word per line.
+
