@@ -5,31 +5,29 @@ import sys
 import os
 import shlex
 import subprocess
-from nose.tools import with_setup
+from nose.tools import with_setup, assert_true, assert_false, assert_equal
 
 
 def test_anagrams():
     is_anagram = anagrams.anagram_checker("typical")
+    true_anagrams = ['lacipyt', 'typical', 'picalty']
+    for true_anagram in true_anagrams:
+        assert_true(is_anagram(true_anagram))
+    false_anagrams = ['Typical', 'typicul', 'typicall', '_typical', ' typical']
+    for false_anagram in false_anagrams:
+        assert_false(is_anagram(false_anagram))
 
-    assert is_anagram("lacipyt")
-    assert is_anagram("typical")
-    assert not is_anagram("Typical")
-    assert not is_anagram("typicul")
-    assert not is_anagram("typicall")
-    assert not is_anagram("_typical")
-    assert not is_anagram(" typical")
-
-    is_anagram_sugar = anagrams.anagram_checker("açúcar")
-    assert is_anagram_sugar("açúcar")
+    is_anagram_unicode_char = anagrams.anagram_checker("açúcar")
+    assert_true(is_anagram_unicode_char("açúcar"))
 
     is_anagram_hyphen = anagrams.anagram_checker("with-hyphen")
-    assert is_anagram_hyphen("hyphen-with")
+    assert_true(is_anagram_hyphen("hyphen-with"))
 
     is_anagram_pound = anagrams.anagram_checker("symbol#")
-    assert is_anagram_pound("bol#sym")
+    assert_true(is_anagram_pound("bol#sym"))
 
     is_anagram_trademark = anagrams.anagram_checker("trademark®")
-    assert is_anagram_trademark("®marktrade")
+    assert_true(is_anagram_trademark("®marktrade"))
 
 
 class TestAnagramsScript:
@@ -68,7 +66,7 @@ class TestAnagramsScript:
                .format(**self.params))
         cmd_split = shlex.split(cmd)
         output = subprocess.check_output(cmd_split).decode('utf-8').split()
-        assert output == self.params['anagrams']
+        assert_equal(output, self.params['anagrams'])
 
 
 if __name__ == "__main__":
