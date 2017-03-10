@@ -92,14 +92,10 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    is_anagram = anagram_checker(args.word, anagram_signature=sorted)
+    is_anagram = anagram_checker(args.word)
 
     with open(args.fname) as f:
-        words = takewhile(bool, (l.rstrip() for l in f))
-        # We can rule out words that do not have the same length as word
-        # Such tricks are best kept here than in the anagram_checker function
-        target_length = len(args.word)
-        candidate_words = (w for w in words if len(w) == target_length)
-        anagrams = filter(is_anagram, candidate_words)
-        for word in anagrams:
-            print(word)
+        for line in f:
+            word = line.rstrip()
+            if is_anagram(word):
+                print(word)
